@@ -1,0 +1,117 @@
+<div class="container">
+    <div class="row">
+      <div class="col-4" style="display: block; margin-top: 10px;" *ngFor="let user of users">
+        <mat-accordion class="example-headers-align">
+          <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Personal data
+              </mat-panel-title>
+              <mat-panel-description>
+                {{user.name}}
+                <mat-icon>account_circle</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-panel-description>Username:{{user.username}}</mat-panel-description>
+            <mat-panel-description>Email:{{user.email}}</mat-panel-description>
+            <mat-panel-description>Phone:{{user.phone}}</mat-panel-description>
+            <mat-panel-description>Website:{{user.website}}</mat-panel-description>
+          </mat-expansion-panel>
+        
+          <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Address
+              </mat-panel-title>
+              <mat-panel-description>
+                {{user.address.city}}
+                <mat-icon>map</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            
+            <mat-panel-description>Street:{{user.address.street}}</mat-panel-description>
+            <mat-panel-description>Suite:{{user.address.suite}}</mat-panel-description>
+            <mat-panel-description>City:{{user.address.city}}</mat-panel-description>
+            <mat-panel-description>Zipcode:{{user.address.zipcode}}</mat-panel-description>
+            <mat-panel-description>Geo lat:{{user.address.geo.lat}}</mat-panel-description>
+            <mat-panel-description>Geo lng:{{user.address.geo.lng}}</mat-panel-description>    
+          </mat-expansion-panel>
+        
+          <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Company
+              </mat-panel-title>
+              <mat-panel-description>
+                {{user.company.name}}
+                <mat-icon>business_center</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-panel-description>Company:{{user.company.name}}</mat-panel-description>
+            <mat-panel-description>Catch Phrase:{{user.company.catchPhrase}}</mat-panel-description>
+            <mat-panel-description>BS:{{user.company.bs}}</mat-panel-description>
+          </mat-expansion-panel>
+
+
+          <mat-expansion-panel (click)="open(content)" (click)="onSelected(user)" >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Posts
+              </mat-panel-title>
+              <mat-panel-description>
+                Read the Posts
+                <mat-icon>comment</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+          </mat-expansion-panel>
+        
+        </mat-accordion>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" *ngFor="let post of posts">
+      <mat-card class="example-card">
+        <mat-card-title>{{post.title}}</mat-card-title>
+        <mat-card-content>
+          {{post.body}}
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="open(content2)" (click)="onCommentSelected(post)">Show COMMENTS</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  
+  </ng-template>
+
+
+  <ng-template #content2 let-modal>
+    <div class="modal-header">
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" *ngFor="let comment of comments">
+      <mat-card class="example-card">
+        <mat-card-title>{{comment.name}}</mat-card-title>
+        <mat-card-subtitle>{{comment.email}}</mat-card-subtitle>
+        <mat-card-content>
+          {{comment.body}}
+        </mat-card-content>
+      </mat-card>
+    </div>
+  
+  </ng-template>
